@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Nav from './components/Nav';
 import LoginForm from './components/LoginForm';
 import SignupForm from './components/SignupForm';
+import UserProfile from './components/UserProfile';
 import './App.css';
 
 class App extends Component {
@@ -15,8 +16,10 @@ class App extends Component {
   }
 
   componentDidMount() {
+    console.log("in component did mount")
     if (this.state.logged_in) {
-      fetch('http://localhost:8000/core/current_user/', {
+      console.log(" if in component did mount")
+      fetch('http://localhost:8000/game/current_user/', {
         headers: {
           Authorization: `JWT ${localStorage.getItem('token')}`
         }
@@ -50,7 +53,7 @@ class App extends Component {
 
   handle_signup = (e, data) => {
     e.preventDefault();
-    fetch('http://localhost:8000/core/users/', {
+    fetch('http://localhost:8000/game/users/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -105,6 +108,8 @@ class App extends Component {
             ? `Hello, ${this.state.username}`
             : 'Please Log In'}
         </h3>
+
+        <UserProfile username={this.state.username} />
       </div>
     );
   }
